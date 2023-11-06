@@ -12,16 +12,14 @@
       type="number"
       id="initial_contribution"
       placeholder="Початковий внесок"
-      step="0.01" />
+      step="5000" />
 
-    <label for="annual_contribution">Щорічний внесок:</label>
+    <label for="monthly_contribution">Щомісячний внесок:</label>
     <input
       type="number"
-      id="annual_contribution"
-      placeholder="Щорічний внесок"
-      step="0.01" />
-
-    <button id="optionalFieldsButton">Додаткові дані</button>
+      id="monthly_contribution"
+      placeholder="Щомісячний внесок"
+      step="1000" />
 
     <div class="optional-fields">
       <label for="annual_interest_rate">Річна ставка (%):</label>
@@ -29,16 +27,51 @@
         type="number"
         id="annual_interest_rate"
         placeholder="Річна ставка"
-        step="0.01" />
+        step="1" />
 
       <label for="years">Тривалість вкладу в роках:</label>
       <input type="number" id="years" placeholder="Тривалість вкладу" />
+
+      <label for="additional_contributions">Додаткові внески:</label>
+      <input
+        type="number"
+        id="additional_contributions"
+        placeholder="Додаткові внески"
+        step="10000" />
+
+      <label for="additional_contributions_year">Рік додаткового внеску:</label>
+      <input
+        type="number"
+        id="additional_contributions_year"
+        placeholder="Рік внесення" />
+
+      <!-- Рядок для поля інфляційної ставки -->
+      <label for="inflation_rate">Інфляція (%):</label>
+      <input
+        type="number"
+        id="inflation_rate"
+        placeholder="Інфляція"
+        step="1" />
+
+      <label for="show_every_three_years"
+        >Показувати стан капіталу кожні 3 роки:</label
+      >
+      <input type="checkbox" id="show_every_three_years" />
+
+      <div id="capital_by_year"></div>
+
+      <label for="convert_to_currency">Відображати результати в:</label>
+      <select id="convert_to_currency">
+        <option value="UAH">Гривнях</option>
+        <option value="USD">Долларах США</option>
+        <option value="EUR">Євро</option>
+      </select>
     </div>
 
+    <div id="result"></div>
     <button onclick="calculatePension()">Розрахувати</button>
 
-    <div id="result"></div>
-
     <script src="main.js"></script>
+    <script src="fake_exchange_rates.json"></script>
   </body>
 </html>
