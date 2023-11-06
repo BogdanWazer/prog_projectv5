@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Калькулятор пенсійного капіталу</title>
+    <link rel="stylesheet" href="style.css" />
+  </head>
+  <body>
+    <h1>Калькулятор пенсійного капіталу</h1>
+
+    <label for="initial_contribution">Початковий внесок:</label>
+    <input
+      type="number"
+      id="initial_contribution"
+      placeholder="Початковий внесок"
+      step="0.01" />
+
+    <label for="annual_contribution">Щорічний внесок:</label>
+    <input
+      type="number"
+      id="annual_contribution"
+      placeholder="Щорічний внесок"
+      step="0.01" />
+
+    <button id="optionalFieldsButton">Додаткові дані</button>
+
+    <div class="optional-fields">
+      <label for="annual_interest_rate">Річна ставка (%):</label>
+      <input
+        type="number"
+        id="annual_interest_rate"
+        placeholder="Річна ставка"
+        step="0.01" />
+
+      <label for="years">Тривалість вкладу в роках:</label>
+      <input type="number" id="years" placeholder="Тривалість вкладу" />
+    </div>
+
+    <button onclick="calculatePension()">Розрахувати</button>
+
+    <div id="result"></div>
+
+    <script src="main.js"></script>
+  </body>
+</html>
