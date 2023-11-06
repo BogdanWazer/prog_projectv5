@@ -1,25 +1,46 @@
 body {
-  font-family: Arial, sans-serif;
+  font-family: 'Montserrat';
   background-color: #f5f5f5;
   text-align: center;
   padding: 20px;
+  margin: 0;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  min-height: 100vh;
+}
+
+.container {
+  background-color: #fff;
+  border-radius: 5px;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
+  padding: 20px;
+  width: 80%; /* Задайте бажану ширину тут */
+  max-width: 600px; /* Додайте максимальну ширину, якщо потрібно */
 }
 
 h1 {
   color: green;
+  font-size: 24px;
 }
 
 label {
   display: block;
   margin-top: 10px;
+  text-align: center; /* Зберігаємо текст лейбла ліворуч */
 }
 
 input {
-  width: 100%;
+  width: 90%;
   padding: 10px;
   margin: 5px 0;
   border: 1px solid #ccc;
   border-radius: 3px;
+}
+
+select {
+  margin-top: 5px;
+  padding: 8px;
 }
 
 button {
@@ -29,6 +50,8 @@ button {
   border: none;
   border-radius: 3px;
   cursor: pointer;
+  margin-top: 10px;
+  width: 100%; /* Зробити кнопку на весь розмір контейнера */
 }
 
 button:hover {

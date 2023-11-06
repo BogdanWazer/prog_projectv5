@@ -1,36 +1,5 @@
-// Функція для отримання курсів валют з API Приватбанку
-function getExchangeRates() {
-  return fetch('https://api.privatbank.ua/p24api/pubinfo?exchange&coursid=5')
-    .then((response) => response.json())
-    .then((data) => {
-      // Знайдіть курси долара та євро у відповіді API
-      const usdRate = data.find((currency) => currency.ccy === 'USD');
-      const eurRate = data.find((currency) => currency.ccy === 'EUR');
-
-      // Отримайте курси купівлі та продажу для долара та євро
-      const usdBuyRate = parseFloat(usdRate.buy);
-      const usdSaleRate = parseFloat(usdRate.sale);
-      const eurBuyRate = parseFloat(eurRate.buy);
-      const eurSaleRate = parseFloat(eurRate.sale);
-
-      return { usdBuyRate, usdSaleRate, eurBuyRate, eurSaleRate };
-    })
-    .catch((error) => {
-      console.error('Помилка при отриманні курсів валют: ', error);
-      return null;
-    });
-}
-
-// Функція для розрахунку пенсійного капіталу з урахуванням курсів валют
-async function calculatePension() {
-  // Отримайте курси валют з API Приватбанку
-  const exchangeRates = await getExchangeRates();
-
-  if (exchangeRates === null) {
-    return;
-  }
-
-  // Отримайте значення введених користувачем даних
+function calculatePension() {
+  // Отримуємо значення введених користувачем даних
   const initialContribution = parseFloat(
     document.getElementById('initial_contribution').value
   );
@@ -81,13 +50,16 @@ async function calculatePension() {
 
   for (let i = 1; i <= years * 12; i++) {
     if (additionalContributionsYear === i / 12) {
+      // Додаткові внески за роком
       pensionCapital += additionalContributions;
       additionalContributionsMap.set(i / 12, additionalContributions);
     }
+    // Щомісячні внески та їх приріст
     pensionCapital += monthlyContribution;
     pensionCapital *= 1 + monthlyInterestRate;
 
     if (i % 12 === 0 || i === years * 12) {
+      // Запис капіталу за кожний рік
       capitalByYear.push({ year: i / 12, capital: pensionCapital });
     }
 
@@ -100,15 +72,13 @@ async function calculatePension() {
   // Обчислюємо результати в обраній валюті
   let resultText = '';
   if (convertToCurrency === 'USD') {
-    const pensionInUSD = pensionCapital / exchangeRates.usdBuyRate;
-    resultText = `Ваш пенсійний капітал через ${years} років становитиме: ${pensionInUSD.toFixed(
-      2
-    )} USD<br>`;
+    resultText = `Ваш пенсійний капітал через ${years} років становитиме: ${(
+      pensionCapital / 37
+    ).toFixed(2)} USD<br>`;
   } else if (convertToCurrency === 'EUR') {
-    const pensionInEUR = pensionCapital / exchangeRates.eurBuyRate;
-    resultText = `Ваш пенсійний капітал через ${years} років становитиме: ${pensionInEUR.toFixed(
-      2
-    )} EUR<br>`;
+    resultText = `Ваш пенсійний капітал через ${years} років становитиме: ${(
+      pensionCapital / 39
+    ).toFixed(2)} EUR<br>`;
   } else {
     resultText = `Ваш пенсійний капітал через ${years} років становитиме: ${pensionCapital.toFixed(
       2
